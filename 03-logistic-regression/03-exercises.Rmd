@@ -182,6 +182,8 @@ credit.glm <-glm(formula = Class ~ 1, family  = 'binomial', data = GermanCredit)
 
 credit.glm.forward <-stepAIC(credit.glm, data = GermanCredit, direction = 'forward')
 
+summary(credit.glm.forward)
+
 credit.glm.pred <- predict(credit.glm.forward, GermanCredit)
 
 ```
@@ -192,8 +194,8 @@ credit.glm.pred <- predict(credit.glm.forward, GermanCredit)
 
 - Implement Kuhn's iterative feature removal function described in **APM** Section 3.5, page 47
 
-#Assumes that cor
 ```{r}
+#untested
 feature_removal <- function(cor_matrix, threshold = .8) {
   if(length(cor_matrix == 0))
     return()
