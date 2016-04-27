@@ -1,6 +1,6 @@
 ---
 title: "03-exercises"
-author: "Your Name Here"
+author: "Steven Rivera-James"
 date: "April 20, 2016"
 output: html_document
 ---
@@ -27,7 +27,7 @@ Note: The following will set-up your environment for this exercise. If you get a
 
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 
-packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr', 'caret')
+packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr', 'caret', 'MASS', 'C50' , 'gmodels')
 
 for( nm in packs ) { 
   # message(nm)
@@ -57,15 +57,50 @@ Using Fuel Economy data set from the **AppliedPredictiveModeling** Package.
 - USe MASS::StepAIC to improve the model using backward stepwise regression 
 
 ```{r}
+form = ~ EngDispl + NumCyl + Transmission + FE + AirAspirationMethod + NumGears + TransLockup + TransCreeperGear + DriveDesc + IntakeValvePerCyl + ExhaustValvesPerCyl + CarlineClassDesc + VarValveTiming + VarValveLift
 
- # Your work here
+#simplest model, the natural prediction, the mean of FE
+fit.min <- lm(FE ~ 1, fe)
 
+#Using stepAic to improve model using forward stepwise 
+fit.min.forward <- stepAIC(fit.min, scope = form, direction = "forward")
+
+#Fit the full model, all variables
+fit.full = lm(FE ~ . , fe)
+
+#Use backward stepwise regression on the full model
+fit.full.back <- stepAIC(fit.full, scope = ~1, direction = "backward")
+
+#loss functions from 2nd assignment. #Using these to evaluate our models
+rmse <- function(y,yhat) {
+  (y - yhat)^2 %>% mean %>% sqrt
+}
+
+mae <- function(y, yhat) {
+  (y - yhat) %>% abs %>% mean
+}
+
+medae <- function(y, yhat) {
+  (y - yhat) %>% abs %>% median
+}
+
+pred.forward <- predict(fit.min.forward, fe)
+pred.back <- predict(fit.full.back, fe)
+
+#errors for forward
+rmse(fe$FE, pred.forward)
+mae(fe$FE, pred.forward)
+medae(fe$FE, pred.forward)
+
+#errors for backward
+rmse(fe$FE, pred.back)
+mae(fe$FE, pred.back)
+medae(fe$FE, pred.back)
 ```
 
 - Are they the same model? If not why?  Which is better?
 
-
-
+No, they are not the same model. Forward started with the intercept and added variables as it saw fit while backwards did the reverse. The end result were 2 different models: specifically, backwards took into account variables that forward didn't (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.The backward model is better according to our loss functions, as seen above. The errors for backward are less than those for forward; however, given that both models used the full set of data rather than separating between training data and testing data, I'd say that these models are overfit.
 
 ## Logsitic and Inverse Logistic Transformation 
 
@@ -84,16 +119,18 @@ Using Fuel Economy data set from the **AppliedPredictiveModeling** Package.
 ```{r}
 
 logistic <- function(x) { 
-  ... # Your work here  
+  1/(1+exp(-x))
 }
 
-qplot( ... )
+#plot using curve from hint above
+curve(logistic, -10, 10)
 
 logistic_inv <- function(y) { 
-  ... # Your work  
+  -log((1/y) - 1)  
 }
 
-qplot(...) 
+#plot using curve from hint above
+curve(logistic_inv, 0, 1)
 
 ```
 
@@ -113,7 +150,39 @@ c(0,0.5,1) %>% logistic_inv
 Using the GermanCredit data from the **Caret** package/ UCI Machine Learning Library, create a model for `Class` ("Good" vs. "Bad" ). Show your model performance.  
 
 ```{r}
+data(GermanCredit)
 
+#set seed
+set.seed(123)
+credit.tsample <- sample(1000, 900)
+
+#set our training data and our testing data
+credit.train <- GermanCredit[credit.tsample,]
+credit.test <- GermanCredit[-credit.tsample,]
+
+#cost matrix
+#matrix.dimensions <- list(c('Bad', 'Good'), c('Bad', 'Good'))
+#names(matrix.dimensions) <- c('predicted', 'actual')
+
+#Note: Using the cost matrix is good at detecting false-positives, but errors are greater..might be worth it
+
+#decision tree model with boosting
+#Excluding the actual decision (reserved for target)
+credit.treemodel <- C5.0(credit.train[-10], credit.train$Class, trials = 10)
+
+#predict
+credit.pred <- predict(credit.treemodel, credit.test)
+
+#Show cross table to see accuracy
+CrossTable(credit.test$Class, credit.pred, prop.chisq = F, prop.c = F, prop.r = F,dnn=c('actual class', 'predicted class'))
+
+#Model using glm
+#not splitting betwen test and training here
+credit.glm <-glm(formula = Class ~ 1, family  = 'binomial', data = GermanCredit)
+
+credit.glm.forward <-stepAIC(credit.glm, data = GermanCredit, direction = 'forward')
+
+credit.glm.pred <- predict(credit.glm.forward, GermanCredit)
 
 ```
 
@@ -123,7 +192,34 @@ Using the GermanCredit data from the **Caret** package/ UCI Machine Learning Lib
 
 - Implement Kuhn's iterative feature removal function described in **APM** Section 3.5, page 47
 
-
+#Assumes that cor
+```{r}
+feature_removal <- function(cor_matrix, threshold = .8) {
+  if(length(cor_matrix == 0))
+    return()
+  #absolute for initial call
+  cor_matrix <- abs(cor_matrix)
+  #0 out the diagonal because self-correlation will be highest
+  diag(cor_matrix) <- 0
+  #if below threshold return the matrix
+  if(max(cor_matrix) <= threshold)
+    return(cor_matrix)
+  #find pairs whose abs correlation is equal to the max. Use first max.
+  max <- which(max(cor_matrix) == cor_matrix, arr.ind = T)[1,]
+  #Get A and B
+  a = max[[1]]
+  b = max[[2]]
+  #Compute the averages
+  a_mean = mean(cor_matrix[,-b][a,])
+  b_mean = mean(cor_matrix[-a,][,b])
+  if(a_mean > b_mean) {
+    feature_removal(cor_matrix[-a,])
+  } else {
+    feature_removal(cor_matrix[,-b])
+  }
+  
+}
+```
 
 ## Synthetic Data (Optional)
 
