@@ -200,26 +200,46 @@ feature_removal <- function(cor_matrix, threshold = .8) {
   if(length(cor_matrix == 0))
     return()
   #absolute for initial call
-  cor_matrix <- abs(cor_matrix)
+  abscor_matrix <- abs(cor_matrix)
   #0 out the diagonal because self-correlation will be highest
-  diag(cor_matrix) <- 0
+  diag(abscor_matrix) <- 0
   #if below threshold return the matrix
-  if(max(cor_matrix) <= threshold)
+  if(max(abscor_matrix) <= threshold)
     return(cor_matrix)
   #find pairs whose abs correlation is equal to the max. Use first max.
-  max <- which(max(cor_matrix) == cor_matrix, arr.ind = T)[1,]
+  max <- which(max(abscor_matrix) == abscor_matrix, arr.ind = T)[1,]
   #Get A and B
   a = max[[1]]
   b = max[[2]]
   #Compute the averages
-  a_mean = mean(cor_matrix[,-b][a,])
-  b_mean = mean(cor_matrix[-a,][,b])
+  a_mean = mean(abscor_matrix[,-b][a,])
+  b_mean = mean(abscor_matrix[-a,][,b])
   if(a_mean > b_mean) {
-    feature_removal(cor_matrix[-a,])
+    return(feature_removal(cor_matrix[-a,]))
   } else {
-    feature_removal(cor_matrix[,-b])
+    return(feature_removal(cor_matrix[,-b]))
   }
   
+}
+
+#untested iterative version of feature removal
+feature_removal_iter <- function(cor_matrix, threshold = .8) {
+  while (length(cor_matrix) > 0 && max(abs(cor_matrix)) > threshold) {
+    #find pairs whose abs correlation is equal to the max. Use first max.
+    max <- which(max(abs(cor_matrix)) == abs(matrix), arr.ind = T)[1,]
+    #Get A and B
+    a = max[[1]]
+    b = max[[2]]
+    #Compute the averages
+    a_mean = mean(abs(cor_matrix[,-b][a,]))
+    b_mean = mean(abs(cor_matrix[-a,][,b]))
+    if(a_mean > b_mean) {
+      cor_matrix[-a,]
+    } else {
+      cor_matrix[,-b]
+    }
+  }
+  cor_matrix
 }
 ```
 
