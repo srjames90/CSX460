@@ -100,7 +100,7 @@ medae(fe$FE, pred.back)
 
 - Are they the same model? If not why?  Which is better?
 
-No, they are not the same model. Forward started with the intercept and added variables as it saw fit while backwards did the reverse. The end result were 2 different models: specifically, backwards took into account variables that forward didn't (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.The backward model is better according to our loss functions, as seen above. The errors for backward are less than those for forward; however, given that both models used the full set of data rather than separating between training data and testing data, I'd say that these models are overfit.
+No, they are not the same model. Forward started with the intercept and added variables as it saw fit while backwards did the reverse. The end result were 2 different models: specifically, backwards took into account variables that forward didn't (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.The backward model is better according to our loss functions, as seen above. The errors for backward are less than those for forward, so one can argue it is marginally better; however, given that both models used the full set of data rather than separating between training data and testing data, I'd say that these models are overfit.
 
 ## Logsitic and Inverse Logistic Transformation 
 
