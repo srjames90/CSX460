@@ -63,13 +63,15 @@ form = ~ EngDispl + NumCyl + Transmission + FE + AirAspirationMethod + NumGears 
 fit.min <- lm(FE ~ 1, fe)
 
 #Using stepAic to improve model using forward stepwise 
-fit.min.forward <- stepAIC(fit.min, scope = form, direction = "forward")
+fit.min.forward <- stepAIC(fit.min, scope = form, direction = "forward", trace = 0)
+summary(fit.min.forward)
 
 #Fit the full model, all variables
 fit.full = lm(FE ~ . , fe)
 
 #Use backward stepwise regression on the full model
-fit.full.back <- stepAIC(fit.full, scope = ~1, direction = "backward")
+fit.full.back <- stepAIC(fit.full, scope = ~1, direction = "backward", trace = 0)
+summary(fit.full.back)
 
 #loss functions from 2nd assignment. #Using these to evaluate our models
 rmse <- function(y,yhat) {
@@ -100,7 +102,9 @@ medae(fe$FE, pred.back)
 
 - Are they the same model? If not why?  Which is better?
 
-No, they are not the same model. Forward started with the intercept and added variables as it saw fit while backwards did the reverse. The end result were 2 different models: specifically, backwards took into account variables that forward didn't (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.The backward model is better according to our loss functions, as seen above. The errors for backward are less than those for forward, so one can argue it is marginally better; however, given that both models used the full set of data rather than separating between training data and testing data, I'd say that these models are overfit.
+One can argue they are the same given the differences are marginal and the residuals/coefficients are  practically the same. Forward started with the intercept and added variables as it saw fit while backwards started with the full model and removed. The end result were 2 similar models: specifically, backwards took into account variables that forward didn't (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.
+If one were to argue that they are different, then backwards would be better since the errors for backward are less than those for forward, though marginally so.
+Note: Given that both models used the full set of data rather than separating between training data and testing data, I'd say that these models are overfit.
 
 ## Logsitic and Inverse Logistic Transformation 
 
@@ -178,14 +182,16 @@ CrossTable(credit.test$Class, credit.pred, prop.chisq = F, prop.c = F, prop.r = 
 
 #Model using glm
 #not splitting betwen test and training here
-credit.glm <-glm(formula = Class ~ 1, family  = 'binomial', data = GermanCredit)
+credit.glm <-glm(formula = Class ~ ., family  = 'binomial', data = credit.train)
 
-credit.glm.forward <-stepAIC(credit.glm, data = GermanCredit, direction = 'forward')
+credit.glm.backward <-stepAIC(credit.glm, data = credit.train, direction = 'backward', trace = 0)
 
-summary(credit.glm.forward)
+summary(credit.glm.backward)
 
-credit.glm.pred <- predict(credit.glm.forward, GermanCredit)
-
+#performs well, way better than decision tree in regards to false positives
+credit.glm.pred <- predict.glm(credit.glm.backward, credit.test)
+credit.glm.predClass <- ifelse(credit.glm.pred > .8, 'Good', 'Bad')
+CrossTable(credit.test$Class, credit.glm.predClass, prop.chisq = F, prop.c = F, prop.r = F,dnn=c('actual class', 'predicted class'))
 ```
 
 

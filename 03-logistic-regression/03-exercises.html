@@ -144,255 +144,266 @@ $(document).ready(function () {
 fit.min &lt;- lm(FE ~ 1, fe)
 
 #Using stepAic to improve model using forward stepwise 
-fit.min.forward &lt;- stepAIC(fit.min, scope = form, direction = &quot;forward&quot;)</code></pre>
-<pre><code>## Start:  AIC=6054.49
-## FE ~ 1</code></pre>
+fit.min.forward &lt;- stepAIC(fit.min, scope = form, direction = &quot;forward&quot;, trace = 0)</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 4 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + EngDispl             1     60851 33997 4571.9
-## + NumCyl               1     52979 41869 4873.2
-## + DriveDesc            4     43848 51000 5164.7
-## + CarlineClassDesc    16     32977 61871 5468.3
-## + ExhaustValvesPerCyl  1     14745 80103 5812.0
-## + Transmission        15     14786 80062 5839.3
-## + IntakeValvePerCyl    1     11842 83006 5863.5
-## + TransLockup          1      6707 88141 5950.4
-## + NumGears             1      2761 92087 6013.7
-## + VarValveLift         1      1874 92974 6027.6
-## + VarValveTiming       1      1856 92993 6027.9
-## + AirAspirationMethod  2      1402 93446 6036.9
-## + TransCreeperGear     1      1121 93727 6039.3
-## &lt;none&gt;                             94848 6054.5
-## 
-## Step:  AIC=4571.86
-## FE ~ EngDispl</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
-## $contrasts): the response appeared on the right-hand side and was dropped
-
-## Warning in model.matrix.default(Terms, m, contrasts.arg = object
+## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
+<pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 4 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + CarlineClassDesc    16    8649.4 25348 4179.0
-## + DriveDesc            4    7403.9 26593 4224.4
-## + Transmission        15    2403.8 31593 4495.7
-## + TransLockup          1     633.4 33364 4546.6
-## + VarValveTiming       1     525.3 33472 4551.3
-## + TransCreeperGear     1     250.2 33747 4563.2
-## + NumCyl               1     230.6 33766 4564.0
-## + VarValveLift         1     172.2 33825 4566.5
-## + AirAspirationMethod  2     166.4 33831 4568.8
-## + IntakeValvePerCyl    1      88.9 33908 4570.1
-## + ExhaustValvesPerCyl  1      55.6 33941 4571.5
-## &lt;none&gt;                             33997 4571.9
-## + NumGears             1      28.8 33968 4572.6
-## 
-## Step:  AIC=4179.04
-## FE ~ EngDispl + CarlineClassDesc</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 5 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + DriveDesc            4    4302.0 21046 3917.9
-## + Transmission        15    2648.2 22699 4049.4
-## + NumCyl               1    1862.9 23485 4070.6
-## + IntakeValvePerCyl    1     999.2 24348 4122.8
-## + ExhaustValvesPerCyl  1     788.1 24560 4135.3
-## + AirAspirationMethod  2     697.7 24650 4142.6
-## + NumGears             1     602.0 24746 4146.3
-## + TransLockup          1     142.8 25205 4172.9
-## + VarValveTiming       1      64.2 25283 4177.4
-## &lt;none&gt;                             25348 4179.0
-## + TransCreeperGear     1      30.9 25317 4179.3
-## + VarValveLift         1      18.7 25329 4180.0
-## 
-## Step:  AIC=3917.9
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 6 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + Transmission        15   2059.69 18986 3798.9
-## + NumCyl               1   1320.61 19725 3826.1
-## + IntakeValvePerCyl    1    647.48 20398 3874.7
-## + ExhaustValvesPerCyl  1    471.61 20574 3887.1
-## + VarValveLift         1    241.63 20804 3903.2
-## + NumGears             1    166.46 20879 3908.4
-## + AirAspirationMethod  2    148.50 20897 3911.7
-## + TransLockup          1    100.65 20945 3913.0
-## + TransCreeperGear     1     45.76 21000 3916.8
-## + VarValveTiming       1     44.34 21001 3916.9
-## &lt;none&gt;                             21046 3917.9
-## 
-## Step:  AIC=3798.87
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
-## $contrasts): the response appeared on the right-hand side and was dropped
-
-## Warning in model.matrix.default(Terms, m, contrasts.arg = object
-## $contrasts): problem with term 6 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + NumCyl               1   1217.12 17769 3705.0
-## + IntakeValvePerCyl    1    701.50 18284 3746.4
-## + ExhaustValvesPerCyl  1    472.32 18514 3764.4
-## + VarValveLift         1    283.63 18702 3779.1
-## + AirAspirationMethod  2    115.12 18871 3794.1
-## + NumGears             1     81.25 18905 3794.7
-## + TransLockup          1     81.00 18905 3794.7
-## + TransCreeperGear     1     40.47 18945 3797.8
-## &lt;none&gt;                             18986 3798.9
-## + VarValveTiming       1      0.82 18985 3800.8
-## 
-## Step:  AIC=3705
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
-##     NumCyl</code></pre>
+## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
-## $contrasts): the response appeared on the right-hand side and was dropped
-
-## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 6 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + IntakeValvePerCyl    1   289.127 17480 3683.3
-## + ExhaustValvesPerCyl  1   261.463 17507 3685.6
-## + VarValveLift         1   191.161 17578 3691.4
-## + NumGears             1    63.769 17705 3701.8
-## + TransLockup          1    55.834 17713 3702.4
-## + AirAspirationMethod  2    67.243 17702 3703.5
-## &lt;none&gt;                             17769 3705.0
-## + TransCreeperGear     1    16.668 17752 3705.6
-## + VarValveTiming       1     0.232 17769 3707.0
-## 
-## Step:  AIC=3683.26
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
-##     NumCyl + IntakeValvePerCyl</code></pre>
+<pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
+## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
+<pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
+## $contrasts): problem with term 6 in model.matrix: no columns are assigned</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 7 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + VarValveLift         1   207.431 17272 3668.0
-## + AirAspirationMethod  2    78.398 17401 3680.8
-## + TransLockup          1    51.921 17428 3681.0
-## + NumGears             1    46.560 17433 3681.4
-## &lt;none&gt;                             17480 3683.3
-## + TransCreeperGear     1    17.890 17462 3683.8
-## + VarValveTiming       1     8.873 17471 3684.5
-## + ExhaustValvesPerCyl  1     7.561 17472 3684.6
-## 
-## Step:  AIC=3667.99
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
-##     NumCyl + IntakeValvePerCyl + VarValveLift</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 8 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + TransLockup          1    65.285 17207 3664.5
-## + NumGears             1    42.190 17230 3666.5
-## &lt;none&gt;                             17272 3668.0
-## + AirAspirationMethod  2    41.235 17231 3668.5
-## + TransCreeperGear     1    13.445 17259 3668.9
-## + VarValveTiming       1     9.959 17262 3669.2
-## + ExhaustValvesPerCyl  1     8.365 17264 3669.3
-## 
-## Step:  AIC=3664.51
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
-##     NumCyl + IntakeValvePerCyl + VarValveLift + TransLockup</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 9 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## + NumGears             1    45.751 17161 3662.7
-## + AirAspirationMethod  2    47.697 17159 3664.5
-## &lt;none&gt;                             17207 3664.5
-## + TransCreeperGear     1    13.832 17193 3665.3
-## + VarValveTiming       1    10.861 17196 3665.6
-## + ExhaustValvesPerCyl  1     8.766 17198 3665.8
-## 
-## Step:  AIC=3662.66
-## FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
-##     NumCyl + IntakeValvePerCyl + VarValveLift + TransLockup + 
-##     NumGears</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): the response appeared on the right-hand side and was dropped</code></pre>
 <pre><code>## Warning in model.matrix.default(Terms, m, contrasts.arg = object
 ## $contrasts): problem with term 10 in model.matrix: no columns are assigned</code></pre>
-<pre><code>##                       Df Sum of Sq   RSS    AIC
-## &lt;none&gt;                             17161 3662.7
-## + AirAspirationMethod  2    41.841 17119 3663.1
-## + TransCreeperGear     1    14.106 17147 3663.5
-## + VarValveTiming       1    10.960 17150 3663.7
-## + ExhaustValvesPerCyl  1     7.542 17154 3664.0</code></pre>
+<pre class="r"><code>summary(fit.min.forward)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = FE ~ EngDispl + CarlineClassDesc + DriveDesc + Transmission + 
+##     NumCyl + IntakeValvePerCyl + VarValveLift + TransLockup + 
+##     NumGears, data = fe)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.5487  -1.9801  -0.0859   1.8311  20.3907 
+## 
+## Coefficients:
+##                                                 Estimate Std. Error
+## (Intercept)                                      56.6568     2.2658
+## EngDispl                                         -2.2864     0.2176
+## CarlineClassDesc2Seaters                          3.8245     0.9839
+## CarlineClassDescCompactCars                       4.5804     0.9200
+## CarlineClassDescLargeCars                         3.4469     0.9580
+## CarlineClassDescMidsizeCars                       4.3197     0.9250
+## CarlineClassDescMinicompactCars                   4.1510     1.0213
+## CarlineClassDescSmallPickupTrucks2WD             -1.2311     1.0949
+## CarlineClassDescSmallPickupTrucks4WD             -0.2672     1.2216
+## CarlineClassDescSmallStationWagons                2.8236     0.9683
+## CarlineClassDescSpecialPurposeVehicleminivan2WD  -2.3289     1.1952
+## CarlineClassDescSpecialPurposeVehicleSUV2WD      -1.0573     0.9364
+## CarlineClassDescSpecialPurposeVehicleSUV4WD       0.4903     0.9465
+## CarlineClassDescStandardPickupTrucks2WD          -0.4694     1.0862
+## CarlineClassDescStandardPickupTrucks4WD          -0.9136     1.1176
+## CarlineClassDescSubcompactCars                    3.9098     0.9386
+## CarlineClassDescVansCargoTypes                   -3.3469     1.1973
+## CarlineClassDescVansPassengerType                -4.5077     1.2517
+## DriveDescFourWheelDrive                          -0.1221     0.4155
+## DriveDescParttimeFourWheelDrive                   0.2736     1.1514
+## DriveDescTwoWheelDriveFront                       5.6349     0.3496
+## DriveDescTwoWheelDriveRear                        1.6137     0.3434
+## TransmissionA4                                   -6.7371     1.2250
+## TransmissionA5                                   -5.2937     1.1757
+## TransmissionA6                                   -3.3368     1.2044
+## TransmissionA7                                   -2.7830     1.3337
+## TransmissionAM6                                  -5.4654     1.4496
+## TransmissionAM7                                  -6.2919     1.7440
+## TransmissionAV                                   -4.8263     1.7301
+## TransmissionAVS6                                 -7.7242     1.9044
+## TransmissionM5                                   -5.8485     1.2070
+## TransmissionM6                                   -5.7430     1.1965
+## TransmissionS4                                   -9.5431     1.4531
+## TransmissionS5                                   -6.9869     1.2403
+## TransmissionS6                                   -4.3939     1.1790
+## TransmissionS7                                   -4.1872     1.3905
+## TransmissionS8                                   -1.1423     1.5811
+## NumCyl                                           -1.0704     0.1413
+## IntakeValvePerCyl                                -1.7712     0.3675
+## VarValveLift                                      1.1903     0.2827
+## TransLockup                                      -0.8066     0.3397
+## NumGears                                         -0.5959     0.3079
+##                                                 t value Pr(&gt;|t|)    
+## (Intercept)                                      25.006  &lt; 2e-16 ***
+## EngDispl                                        -10.506  &lt; 2e-16 ***
+## CarlineClassDesc2Seaters                          3.887 0.000106 ***
+## CarlineClassDescCompactCars                       4.979 7.20e-07 ***
+## CarlineClassDescLargeCars                         3.598 0.000332 ***
+## CarlineClassDescMidsizeCars                       4.670 3.30e-06 ***
+## CarlineClassDescMinicompactCars                   4.064 5.08e-05 ***
+## CarlineClassDescSmallPickupTrucks2WD             -1.124 0.261019    
+## CarlineClassDescSmallPickupTrucks4WD             -0.219 0.826887    
+## CarlineClassDescSmallStationWagons                2.916 0.003603 ** 
+## CarlineClassDescSpecialPurposeVehicleminivan2WD  -1.949 0.051554 .  
+## CarlineClassDescSpecialPurposeVehicleSUV2WD      -1.129 0.259047    
+## CarlineClassDescSpecialPurposeVehicleSUV4WD       0.518 0.604530    
+## CarlineClassDescStandardPickupTrucks2WD          -0.432 0.665714    
+## CarlineClassDescStandardPickupTrucks4WD          -0.817 0.413819    
+## CarlineClassDescSubcompactCars                    4.166 3.30e-05 ***
+## CarlineClassDescVansCargoTypes                   -2.795 0.005255 ** 
+## CarlineClassDescVansPassengerType                -3.601 0.000328 ***
+## DriveDescFourWheelDrive                          -0.294 0.768888    
+## DriveDescParttimeFourWheelDrive                   0.238 0.812227    
+## DriveDescTwoWheelDriveFront                      16.120  &lt; 2e-16 ***
+## DriveDescTwoWheelDriveRear                        4.699 2.87e-06 ***
+## TransmissionA4                                   -5.500 4.52e-08 ***
+## TransmissionA5                                   -4.503 7.27e-06 ***
+## TransmissionA6                                   -2.770 0.005672 ** 
+## TransmissionA7                                   -2.087 0.037088 *  
+## TransmissionAM6                                  -3.770 0.000170 ***
+## TransmissionAM7                                  -3.608 0.000320 ***
+## TransmissionAV                                   -2.790 0.005349 ** 
+## TransmissionAVS6                                 -4.056 5.27e-05 ***
+## TransmissionM5                                   -4.846 1.40e-06 ***
+## TransmissionM6                                   -4.800 1.76e-06 ***
+## TransmissionS4                                   -6.568 7.18e-11 ***
+## TransmissionS5                                   -5.633 2.13e-08 ***
+## TransmissionS6                                   -3.727 0.000202 ***
+## TransmissionS7                                   -3.011 0.002647 ** 
+## TransmissionS8                                   -0.722 0.470113    
+## NumCyl                                           -7.574 6.54e-14 ***
+## IntakeValvePerCyl                                -4.819 1.60e-06 ***
+## VarValveLift                                      4.210 2.71e-05 ***
+## TransLockup                                      -2.374 0.017724 *  
+## NumGears                                         -1.935 0.053144 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.495 on 1405 degrees of freedom
+## Multiple R-squared:  0.8191, Adjusted R-squared:  0.8138 
+## F-statistic: 155.1 on 41 and 1405 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Fit the full model, all variables
 fit.full = lm(FE ~ . , fe)
 
 #Use backward stepwise regression on the full model
-fit.full.back &lt;- stepAIC(fit.full, scope = ~1, direction = &quot;backward&quot;)</code></pre>
-<pre><code>## Start:  AIC=3665.22
-## FE ~ EngDispl + NumCyl + Transmission + AirAspirationMethod + 
-##     NumGears + TransLockup + TransCreeperGear + DriveDesc + IntakeValvePerCyl + 
-##     ExhaustValvesPerCyl + CarlineClassDesc + VarValveTiming + 
-##     VarValveLift
-## 
-##                       Df Sum of Sq   RSS    AIC
-## - VarValveTiming       1       6.9 17080 3663.8
-## - IntakeValvePerCyl    1      16.4 17090 3664.6
-## - TransCreeperGear     1      18.4 17092 3664.8
-## &lt;none&gt;                             17073 3665.2
-## - ExhaustValvesPerCyl  1      24.6 17098 3665.3
-## - AirAspirationMethod  2      53.3 17126 3665.7
-## - NumGears             1      37.3 17111 3666.4
-## - TransLockup          1      78.0 17151 3669.8
-## - VarValveLift         1     170.6 17244 3677.6
-## - NumCyl               1     677.8 17751 3719.6
-## - EngDispl             1    1341.9 18415 3772.7
-## - Transmission        15    1928.4 19002 3790.1
-## - DriveDesc            4    3309.4 20383 3913.6
-## - CarlineClassDesc    16    5165.9 22239 4015.7
-## 
-## Step:  AIC=3663.81
-## FE ~ EngDispl + NumCyl + Transmission + AirAspirationMethod + 
-##     NumGears + TransLockup + TransCreeperGear + DriveDesc + IntakeValvePerCyl + 
-##     ExhaustValvesPerCyl + CarlineClassDesc + VarValveLift
-## 
-##                       Df Sum of Sq   RSS    AIC
-## - IntakeValvePerCyl    1      16.8 17097 3663.2
-## - ExhaustValvesPerCyl  1      22.4 17103 3663.7
-## &lt;none&gt;                             17080 3663.8
-## - TransCreeperGear     1      24.2 17104 3663.9
-## - AirAspirationMethod  2      55.0 17135 3664.5
-## - NumGears             1      37.3 17117 3665.0
-## - TransLockup          1      77.4 17158 3668.3
-## - VarValveLift         1     168.6 17249 3676.0
-## - NumCyl               1     674.4 17754 3717.8
-## - EngDispl             1    1343.0 18423 3771.3
-## - Transmission        15    2079.5 19160 3800.0
-## - DriveDesc            4    3347.2 20427 3914.8
-## - CarlineClassDesc    16    5173.6 22254 4014.7
-## 
-## Step:  AIC=3663.23
-## FE ~ EngDispl + NumCyl + Transmission + AirAspirationMethod + 
+fit.full.back &lt;- stepAIC(fit.full, scope = ~1, direction = &quot;backward&quot;, trace = 0)
+summary(fit.full.back)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = FE ~ EngDispl + NumCyl + Transmission + AirAspirationMethod + 
 ##     NumGears + TransLockup + TransCreeperGear + DriveDesc + ExhaustValvesPerCyl + 
-##     CarlineClassDesc + VarValveLift
+##     CarlineClassDesc + VarValveLift, data = fe)
 ## 
-##                       Df Sum of Sq   RSS    AIC
-## &lt;none&gt;                             17097 3663.2
-## - TransCreeperGear     1      31.8 17129 3663.9
-## - NumGears             1      37.0 17134 3664.4
-## - AirAspirationMethod  2      65.0 17162 3664.7
-## - TransLockup          1      79.0 17176 3667.9
-## - VarValveLift         1     165.2 17262 3675.1
-## - ExhaustValvesPerCyl  1     298.0 17395 3686.2
-## - NumCyl               1     807.0 17904 3728.0
-## - EngDispl             1    1350.5 18447 3771.2
-## - Transmission        15    2071.8 19169 3798.7
-## - DriveDesc            4    3345.1 20442 3913.8
-## - CarlineClassDesc    16    5157.7 22255 4012.7</code></pre>
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.0609  -1.9825  -0.0752   1.7808  20.3485 
+## 
+## Coefficients:
+##                                                 Estimate Std. Error
+## (Intercept)                                      57.2517     2.2848
+## EngDispl                                         -2.2834     0.2170
+## NumCyl                                           -1.1267     0.1385
+## TransmissionA4                                   -6.9709     1.2301
+## TransmissionA5                                   -5.5639     1.1847
+## TransmissionA6                                   -3.6928     1.2193
+## TransmissionA7                                   -3.0443     1.3523
+## TransmissionAM6                                  -5.5630     1.4614
+## TransmissionAM7                                  -6.5349     1.7569
+## TransmissionAV                                   -4.9425     1.7283
+## TransmissionAVS6                                 -7.8005     1.9023
+## TransmissionM5                                   -6.2107     1.2136
+## TransmissionM6                                   -5.8960     1.2086
+## TransmissionS4                                   -9.7062     1.4567
+## TransmissionS5                                   -7.1511     1.2492
+## TransmissionS6                                   -4.4774     1.1919
+## TransmissionS7                                   -4.3377     1.4024
+## TransmissionS8                                   -1.0995     1.5981
+## AirAspirationMethodSupercharged                  -1.1908     0.7352
+## AirAspirationMethodTurbocharged                  -0.5294     0.2907
+## NumGears                                         -0.5392     0.3095
+## TransLockup                                      -0.8663     0.3403
+## TransCreeperGear                                 -0.6862     0.4250
+## DriveDescFourWheelDrive                          -0.1871     0.4211
+## DriveDescParttimeFourWheelDrive                   0.0602     1.1517
+## DriveDescTwoWheelDriveFront                       5.4942     0.3557
+## DriveDescTwoWheelDriveRear                        1.4926     0.3469
+## ExhaustValvesPerCyl                              -1.7898     0.3620
+## CarlineClassDesc2Seaters                          3.7065     0.9842
+## CarlineClassDescCompactCars                       4.5080     0.9209
+## CarlineClassDescLargeCars                         3.4827     0.9598
+## CarlineClassDescMidsizeCars                       4.2244     0.9248
+## CarlineClassDescMinicompactCars                   4.1125     1.0213
+## CarlineClassDescSmallPickupTrucks2WD             -1.2693     1.0961
+## CarlineClassDescSmallPickupTrucks4WD             -0.3368     1.2223
+## CarlineClassDescSmallStationWagons                2.7368     0.9689
+## CarlineClassDescSpecialPurposeVehicleminivan2WD  -2.4071     1.1953
+## CarlineClassDescSpecialPurposeVehicleSUV2WD      -1.1343     0.9365
+## CarlineClassDescSpecialPurposeVehicleSUV4WD       0.3963     0.9469
+## CarlineClassDescStandardPickupTrucks2WD          -0.5016     1.0884
+## CarlineClassDescStandardPickupTrucks4WD          -0.9926     1.1189
+## CarlineClassDescSubcompactCars                    3.8696     0.9385
+## CarlineClassDescVansCargoTypes                   -3.1397     1.1996
+## CarlineClassDescVansPassengerType                -4.3130     1.2498
+## VarValveLift                                      1.0591     0.2878
+##                                                 t value Pr(&gt;|t|)    
+## (Intercept)                                      25.058  &lt; 2e-16 ***
+## EngDispl                                        -10.524  &lt; 2e-16 ***
+## NumCyl                                           -8.135 8.98e-16 ***
+## TransmissionA4                                   -5.667 1.76e-08 ***
+## TransmissionA5                                   -4.696 2.91e-06 ***
+## TransmissionA6                                   -3.029 0.002502 ** 
+## TransmissionA7                                   -2.251 0.024523 *  
+## TransmissionAM6                                  -3.807 0.000147 ***
+## TransmissionAM7                                  -3.719 0.000208 ***
+## TransmissionAV                                   -2.860 0.004303 ** 
+## TransmissionAVS6                                 -4.101 4.36e-05 ***
+## TransmissionM5                                   -5.118 3.52e-07 ***
+## TransmissionM6                                   -4.878 1.19e-06 ***
+## TransmissionS4                                   -6.663 3.84e-11 ***
+## TransmissionS5                                   -5.725 1.27e-08 ***
+## TransmissionS6                                   -3.757 0.000179 ***
+## TransmissionS7                                   -3.093 0.002020 ** 
+## TransmissionS8                                   -0.688 0.491575    
+## AirAspirationMethodSupercharged                  -1.620 0.105545    
+## AirAspirationMethodTurbocharged                  -1.821 0.068775 .  
+## NumGears                                         -1.742 0.081642 .  
+## TransLockup                                      -2.546 0.011013 *  
+## TransCreeperGear                                 -1.615 0.106635    
+## DriveDescFourWheelDrive                          -0.444 0.656922    
+## DriveDescParttimeFourWheelDrive                   0.052 0.958317    
+## DriveDescTwoWheelDriveFront                      15.445  &lt; 2e-16 ***
+## DriveDescTwoWheelDriveRear                        4.303 1.81e-05 ***
+## ExhaustValvesPerCyl                              -4.944 8.59e-07 ***
+## CarlineClassDesc2Seaters                          3.766 0.000173 ***
+## CarlineClassDescCompactCars                       4.895 1.10e-06 ***
+## CarlineClassDescLargeCars                         3.628 0.000295 ***
+## CarlineClassDescMidsizeCars                       4.568 5.36e-06 ***
+## CarlineClassDescMinicompactCars                   4.027 5.96e-05 ***
+## CarlineClassDescSmallPickupTrucks2WD             -1.158 0.247050    
+## CarlineClassDescSmallPickupTrucks4WD             -0.276 0.782945    
+## CarlineClassDescSmallStationWagons                2.825 0.004801 ** 
+## CarlineClassDescSpecialPurposeVehicleminivan2WD  -2.014 0.044231 *  
+## CarlineClassDescSpecialPurposeVehicleSUV2WD      -1.211 0.226031    
+## CarlineClassDescSpecialPurposeVehicleSUV4WD       0.419 0.675577    
+## CarlineClassDescStandardPickupTrucks2WD          -0.461 0.645000    
+## CarlineClassDescStandardPickupTrucks4WD          -0.887 0.375198    
+## CarlineClassDescSubcompactCars                    4.123 3.95e-05 ***
+## CarlineClassDescVansCargoTypes                   -2.617 0.008960 ** 
+## CarlineClassDescVansPassengerType                -3.451 0.000575 ***
+## VarValveLift                                      3.680 0.000242 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.492 on 1402 degrees of freedom
+## Multiple R-squared:  0.8197, Adjusted R-squared:  0.8141 
+## F-statistic: 144.9 on 44 and 1402 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#loss functions from 2nd assignment. #Using these to evaluate our models
 rmse &lt;- function(y,yhat) {
   (y - yhat)^2 %&gt;% mean %&gt;% sqrt
@@ -426,7 +437,7 @@ rmse(fe$FE, pred.back)</code></pre>
 <ul>
 <li>Are they the same model? If not why? Which is better?</li>
 </ul>
-<p>No, they are not the same model. Forward started with the intercept and added variables as it saw fit while backwards did the reverse. The end result were 2 different models: specifically, backwards took into account variables that forward didn’t (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl.The backward model is better according to our loss functions, as seen above. The errors for backward are less than those for forward; however, given that both models used the full set of data rather than separating between training data and testing data, I’d say that these models are overfit.</p>
+<p>One can argue they are the same given the differences are marginal and the residuals/coefficients are practically the same. Forward started with the intercept and added variables as it saw fit while backwards started with the full model and removed. The end result were 2 similar models: specifically, backwards took into account variables that forward didn’t (e.g., AirAspirationMethod, TransCreeperGear, etc.) and ignored IntakeValveCyl. If one were to argue that they are different, then backwards would be better since the errors for backward are less than those for forward, though marginally so. Note: Given that both models used the full set of data rather than separating between training data and testing data, I’d say that these models are overfit.</p>
 </div>
 <div id="logsitic-and-inverse-logistic-transformation" class="section level2">
 <h2>Logsitic and Inverse Logistic Transformation</h2>
@@ -513,34 +524,124 @@ CrossTable(credit.test$Class, credit.pred, prop.chisq = F, prop.c = F, prop.r = 
 ## </code></pre>
 <pre class="r"><code>#Model using glm
 #not splitting betwen test and training here
-credit.glm &lt;-glm(formula = Class ~ 1, family  = 'binomial', data = GermanCredit)
+credit.glm &lt;-glm(formula = Class ~ ., family  = 'binomial', data = credit.train)
 
-credit.glm.forward &lt;-stepAIC(credit.glm, data = GermanCredit, direction = 'forward')</code></pre>
-<pre><code>## Start:  AIC=1223.73
-## Class ~ 1</code></pre>
-<pre class="r"><code>summary(credit.glm.forward)</code></pre>
+credit.glm.backward &lt;-stepAIC(credit.glm, data = credit.train, direction = 'backward', trace = 0)
+
+summary(credit.glm.backward)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = Class ~ 1, family = &quot;binomial&quot;, data = GermanCredit)
+## glm(formula = Class ~ Duration + Amount + InstallmentRatePercentage + 
+##     Age + ForeignWorker + CheckingAccountStatus.lt.0 + CheckingAccountStatus.0.to.200 + 
+##     CheckingAccountStatus.gt.200 + CreditHistory.NoCredit.AllPaid + 
+##     CreditHistory.ThisBank.AllPaid + CreditHistory.PaidDuly + 
+##     CreditHistory.Delay + Purpose.NewCar + Purpose.Furniture.Equipment + 
+##     Purpose.Radio.Television + Purpose.Repairs + Purpose.Education + 
+##     Purpose.Business + SavingsAccountBonds.lt.100 + SavingsAccountBonds.100.to.500 + 
+##     EmploymentDuration.4.to.7 + Personal.Male.Single + OtherDebtorsGuarantors.None + 
+##     OtherDebtorsGuarantors.CoApplicant + OtherInstallmentPlans.Bank + 
+##     Housing.Rent, family = &quot;binomial&quot;, data = credit.train)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.5518  -1.5518   0.8446   0.8446   0.8446  
+## -2.7181  -0.7235   0.3723   0.7185   2.1247  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  0.84730    0.06901   12.28   &lt;2e-16 ***
+##                                      Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)                         7.954e+00  1.036e+00   7.679 1.60e-14
+## Duration                           -3.148e-02  9.412e-03  -3.344 0.000825
+## Amount                             -9.641e-05  4.281e-05  -2.252 0.024330
+## InstallmentRatePercentage          -2.966e-01  8.963e-02  -3.310 0.000934
+## Age                                 1.204e-02  8.432e-03   1.428 0.153163
+## ForeignWorker                      -1.541e+00  7.135e-01  -2.160 0.030804
+## CheckingAccountStatus.lt.0         -1.901e+00  2.468e-01  -7.702 1.34e-14
+## CheckingAccountStatus.0.to.200     -1.449e+00  2.422e-01  -5.982 2.21e-09
+## CheckingAccountStatus.gt.200       -7.984e-01  3.938e-01  -2.028 0.042585
+## CreditHistory.NoCredit.AllPaid     -1.564e+00  4.586e-01  -3.411 0.000647
+## CreditHistory.ThisBank.AllPaid     -1.309e+00  4.345e-01  -3.013 0.002584
+## CreditHistory.PaidDuly             -5.824e-01  2.221e-01  -2.623 0.008721
+## CreditHistory.Delay                -5.987e-01  3.409e-01  -1.756 0.079027
+## Purpose.NewCar                     -1.427e+00  3.339e-01  -4.274 1.92e-05
+## Purpose.Furniture.Equipment        -8.291e-01  3.441e-01  -2.410 0.015971
+## Purpose.Radio.Television           -7.465e-01  3.443e-01  -2.168 0.030168
+## Purpose.Repairs                    -1.423e+00  5.991e-01  -2.375 0.017531
+## Purpose.Education                  -1.750e+00  4.704e-01  -3.720 0.000199
+## Purpose.Business                   -6.441e-01  4.049e-01  -1.591 0.111689
+## SavingsAccountBonds.lt.100         -8.497e-01  2.275e-01  -3.735 0.000188
+## SavingsAccountBonds.100.to.500     -5.361e-01  3.359e-01  -1.596 0.110420
+## EmploymentDuration.4.to.7           6.734e-01  2.563e-01   2.627 0.008613
+## Personal.Male.Single                5.678e-01  1.889e-01   3.006 0.002651
+## OtherDebtorsGuarantors.None        -1.188e+00  4.558e-01  -2.605 0.009180
+## OtherDebtorsGuarantors.CoApplicant -1.505e+00  6.040e-01  -2.492 0.012707
+## OtherInstallmentPlans.Bank         -7.407e-01  2.505e-01  -2.957 0.003106
+## Housing.Rent                       -4.491e-01  2.373e-01  -1.892 0.058474
+##                                       
+## (Intercept)                        ***
+## Duration                           ***
+## Amount                             *  
+## InstallmentRatePercentage          ***
+## Age                                   
+## ForeignWorker                      *  
+## CheckingAccountStatus.lt.0         ***
+## CheckingAccountStatus.0.to.200     ***
+## CheckingAccountStatus.gt.200       *  
+## CreditHistory.NoCredit.AllPaid     ***
+## CreditHistory.ThisBank.AllPaid     ** 
+## CreditHistory.PaidDuly             ** 
+## CreditHistory.Delay                .  
+## Purpose.NewCar                     ***
+## Purpose.Furniture.Equipment        *  
+## Purpose.Radio.Television           *  
+## Purpose.Repairs                    *  
+## Purpose.Education                  ***
+## Purpose.Business                      
+## SavingsAccountBonds.lt.100         ***
+## SavingsAccountBonds.100.to.500        
+## EmploymentDuration.4.to.7          ** 
+## Personal.Male.Single               ** 
+## OtherDebtorsGuarantors.None        ** 
+## OtherDebtorsGuarantors.CoApplicant *  
+## OtherInstallmentPlans.Bank         ** 
+## Housing.Rent                       .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1221.7  on 999  degrees of freedom
-## Residual deviance: 1221.7  on 999  degrees of freedom
-## AIC: 1223.7
+##     Null deviance: 1094.42  on 899  degrees of freedom
+## Residual deviance:  811.54  on 873  degrees of freedom
+## AIC: 865.54
 ## 
-## Number of Fisher Scoring iterations: 4</code></pre>
-<pre class="r"><code>credit.glm.pred &lt;- predict(credit.glm.forward, GermanCredit)</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>#performs well, way better than decision tree in regards to false positives
+credit.glm.pred &lt;- predict.glm(credit.glm.backward, credit.test)
+credit.glm.predClass &lt;- ifelse(credit.glm.pred &gt; .8, 'Good', 'Bad')
+CrossTable(credit.test$Class, credit.glm.predClass, prop.chisq = F, prop.c = F, prop.r = F,dnn=c('actual class', 'predicted class'))</code></pre>
+<pre><code>## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  100 
+## 
+##  
+##              | predicted class 
+## actual class |       Bad |      Good | Row Total | 
+## -------------|-----------|-----------|-----------|
+##          Bad |        24 |         9 |        33 | 
+##              |     0.240 |     0.090 |           | 
+## -------------|-----------|-----------|-----------|
+##         Good |        17 |        50 |        67 | 
+##              |     0.170 |     0.500 |           | 
+## -------------|-----------|-----------|-----------|
+## Column Total |        41 |        59 |       100 | 
+## -------------|-----------|-----------|-----------|
+## 
+## </code></pre>
 </div>
 <div id="iterative-correlated-feature-removal" class="section level2">
 <h2>Iterative Correlated Feature Removal</h2>
@@ -552,26 +653,46 @@ feature_removal &lt;- function(cor_matrix, threshold = .8) {
   if(length(cor_matrix == 0))
     return()
   #absolute for initial call
-  cor_matrix &lt;- abs(cor_matrix)
+  abscor_matrix &lt;- abs(cor_matrix)
   #0 out the diagonal because self-correlation will be highest
-  diag(cor_matrix) &lt;- 0
+  diag(abscor_matrix) &lt;- 0
   #if below threshold return the matrix
-  if(max(cor_matrix) &lt;= threshold)
+  if(max(abscor_matrix) &lt;= threshold)
     return(cor_matrix)
   #find pairs whose abs correlation is equal to the max. Use first max.
-  max &lt;- which(max(cor_matrix) == cor_matrix, arr.ind = T)[1,]
+  max &lt;- which(max(abscor_matrix) == abscor_matrix, arr.ind = T)[1,]
   #Get A and B
   a = max[[1]]
   b = max[[2]]
   #Compute the averages
-  a_mean = mean(cor_matrix[,-b][a,])
-  b_mean = mean(cor_matrix[-a,][,b])
+  a_mean = mean(abscor_matrix[,-b][a,])
+  b_mean = mean(abscor_matrix[-a,][,b])
   if(a_mean &gt; b_mean) {
-    feature_removal(cor_matrix[-a,])
+    return(feature_removal(cor_matrix[-a,]))
   } else {
-    feature_removal(cor_matrix[,-b])
+    return(feature_removal(cor_matrix[,-b]))
   }
   
+}
+
+#untested iterative version of feature removal
+feature_removal_iter &lt;- function(cor_matrix, threshold = .8) {
+  while (length(cor_matrix) &gt; 0 &amp;&amp; max(abs(cor_matrix)) &gt; threshold) {
+    #find pairs whose abs correlation is equal to the max. Use first max.
+    max &lt;- which(max(abs(cor_matrix)) == abs(matrix), arr.ind = T)[1,]
+    #Get A and B
+    a = max[[1]]
+    b = max[[2]]
+    #Compute the averages
+    a_mean = mean(abs(cor_matrix[,-b][a,]))
+    b_mean = mean(abs(cor_matrix[-a,][,b]))
+    if(a_mean &gt; b_mean) {
+      cor_matrix[-a,]
+    } else {
+      cor_matrix[,-b]
+    }
+  }
+  cor_matrix
 }</code></pre>
 </div>
 <div id="synthetic-data-optional" class="section level2">
