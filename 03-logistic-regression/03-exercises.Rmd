@@ -303,4 +303,3 @@ fit
 - Is the model good?
 - What happens if increase the value of `nsamples`? Decrease it?
 - What transformations would you apply to x1? x2? x3? 
-
