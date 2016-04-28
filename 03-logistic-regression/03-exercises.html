@@ -649,6 +649,8 @@ CrossTable(credit.test$Class, credit.glm.predClass, prop.chisq = F, prop.c = F, 
 <li>Implement Kuhn’s iterative feature removal function described in <strong>APM</strong> Section 3.5, page 47</li>
 </ul>
 <pre class="r"><code>#untested
+#takes a correlation matrix, then returns a new correlation matrix.
+#can use colnames for features
 feature_removal &lt;- function(cor_matrix, threshold = .8) {
   if(length(cor_matrix == 0))
     return()
@@ -668,9 +670,9 @@ feature_removal &lt;- function(cor_matrix, threshold = .8) {
   a_mean = mean(abscor_matrix[,-b][a,])
   b_mean = mean(abscor_matrix[-a,][,b])
   if(a_mean &gt; b_mean) {
-    return(feature_removal(cor_matrix[-a,]))
+    return(feature_removal(cor_matrix[-a,-a]))
   } else {
-    return(feature_removal(cor_matrix[,-b]))
+    return(feature_removal(cor_matrix[-b,-b]))
   }
   
 }
@@ -687,9 +689,9 @@ feature_removal_iter &lt;- function(cor_matrix, threshold = .8) {
     a_mean = mean(abs(cor_matrix[,-b][a,]))
     b_mean = mean(abs(cor_matrix[-a,][,b]))
     if(a_mean &gt; b_mean) {
-      cor_matrix[-a,]
+      cor_matrix[-a,-a]
     } else {
-      cor_matrix[,-b]
+      cor_matrix[-b,-b]
     }
   }
   cor_matrix

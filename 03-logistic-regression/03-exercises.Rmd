@@ -221,9 +221,9 @@ feature_removal <- function(cor_matrix, threshold = .8) {
   a_mean = mean(abscor_matrix[,-b][a,])
   b_mean = mean(abscor_matrix[-a,][,b])
   if(a_mean > b_mean) {
-    return(feature_removal(cor_matrix[-a,]))
+    return(feature_removal(cor_matrix[-a,-a]))
   } else {
-    return(feature_removal(cor_matrix[,-b]))
+    return(feature_removal(cor_matrix[-b,-b]))
   }
   
 }
@@ -240,9 +240,9 @@ feature_removal_iter <- function(cor_matrix, threshold = .8) {
     a_mean = mean(abs(cor_matrix[,-b][a,]))
     b_mean = mean(abs(cor_matrix[-a,][,b]))
     if(a_mean > b_mean) {
-      cor_matrix[-a,]
+      cor_matrix[-a,-a]
     } else {
-      cor_matrix[,-b]
+      cor_matrix[-b,-b]
     }
   }
   cor_matrix
