@@ -46,10 +46,11 @@ x_mean = mean(x)
 
 k=10
 
-# CROSS-VALIDATION
-# ... YOUR WORK HWEW
+x <- x[order(rnorm(20))]
 
-sd_cv <- .. # YOUR ANSWER HERE
+# CROSS-VALIDATION
+
+sd_cv <- sapply(seq(1, 20, by = 2), function(i) {x[-i][-i]} %>% mean) %>% sd
 
 
 # BOOTSTRAP (EXAMPLE)
@@ -125,7 +126,7 @@ yhat = predict(fit.glm, test, type="response") > threshold
 
 
 fpr = function(y,yhat)
-  sum(y & (y != yhat) ) / # FP
+  sum(yhat & !y) / # FP
   sum(! y)                # N
 
 fpr(y,yhat)
