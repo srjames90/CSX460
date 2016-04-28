@@ -202,6 +202,8 @@ CrossTable(credit.test$Class, credit.glm.predClass, prop.chisq = F, prop.c = F, 
 
 ```{r}
 #untested
+#takes a correlation matrix, then returns a new correlation matrix.
+#can use colnames for features
 feature_removal <- function(cor_matrix, threshold = .8) {
   if(length(cor_matrix == 0))
     return()
