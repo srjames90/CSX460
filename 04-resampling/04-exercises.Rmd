@@ -1,6 +1,6 @@
 ---
 title: "Sensitivity and Specificity"
-author: "Your Name Here"
+author: "Steven Rivera"
 date: "October 5, 2015"
 output: html_document
 ---
@@ -46,6 +46,7 @@ x_mean = mean(x)
 
 k=10
 
+#randomize the vector
 x <- x[order(rnorm(20))]
 
 # CROSS-VALIDATION
@@ -106,16 +107,16 @@ The functions should take two logical vectors of the same length, `y` and `yhat`
 
 ```{r}
 
-prevalence = function(y,yhat) {}
-accuracy   =  .. 
-error_rate = ..
-tpr = ..
-fpr = ..      # See Example
-tnr = ..
-sensitivity = ..
-specificity = ..
-recall = .. 
-precision = ..
+prevalence = function(y,yhat) {sum(y) / length(y)}
+accuracy   =  function(y, yhat) {sum(y == yhat) / length(y)} 
+error_rate = function(y, yhat) {1 - accuracy(y,yhat)}
+tpr = function(y, yhat) {sum(y & yhat) / sum(y)}
+fpr = function(y, yhat) {sum(yhat & !y) / sum(!y)}
+tnr = function(y, yhat) {sum(!y & !yhat) / sum(!y)}
+sensitivity = tpr
+specificity = tnr
+recall = tpr 
+precision = function(y, yhat) {sum(y & yhat) / sum(yhat)}
 
 # EXAMPLE: fpr
 # The FPR is THE NUMBER OF FALSE POSITIVES / NEGATIVES (TN+FP)
@@ -124,18 +125,22 @@ threshold = 0.5
 y = test$Versicolor == 'versicolor'
 yhat = predict(fit.glm, test, type="response") > threshold
 
-
-fpr = function(y,yhat)
-  sum(yhat & !y) / # FP
-  sum(! y)                # N
-
 fpr(y,yhat)
+prevalence(y, yhat)
+accuracy(y,yhat)
+error_rate(y, yhat)
+tpr(y,yhat)
+tnr(y,yhat)
+sensitivity(y,yhat)
+specificity(y,yhat)
+recall(y,yhat)
+precision(y, yhat)
 
 ```
 
 - What is wrong with the modeling approach used?
 
-
+Though in some cases, the accuracy and and true negative rate are okay, the true positive rate and false postive rate aren't great, especially if this data set/customer were sensitive to these rates e.g, in the case of credit data.
 
 
 
