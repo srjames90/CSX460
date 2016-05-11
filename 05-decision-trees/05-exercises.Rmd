@@ -1,6 +1,6 @@
 ---
 title: "05-exercises"
-author: "Your Name Here"
+author: "Steven Rivera-James"
 date: "2016-05-xx"
 output: html_document
 ---
@@ -10,7 +10,7 @@ output: html_document
 - **APM** Chapter 14.1-14.5 "Classification Trees and Rule-Based"  
 
 ```{r, echo=FALSE, results='hide', warning=FALSE }
-packs <-  c('ggplot2', 'magrittr', 'dplyr', 'caret', 'AppliedPredictiveModeling')
+packs <-  c('ggplot2', 'magrittr', 'dplyr', 'caret', 'AppliedPredictiveModeling', 'partykit', 'e1071', 'nnet', 'party', 'randomForest', 'pROC', 'rpart')
 
 for( nm in packs ) { 
   # message(nm)
@@ -38,16 +38,34 @@ Save the caret objects with the names provided.
 
 ```{r}
 
-# Your work here. 
+data("GermanCredit")
+gc <- GermanCredit
+seed <- 123
 
-fit.glm <- ..
-fit.knn <- ..
-fit.rpart <- ..
-fit.rf <- ..
-fit.myown <- ..
+control <- trainControl(number=5, classProbs = T, savePredictions = T)
+
+#avoiding tunelengths since it takes a long time to run these
+
+set.seed(seed)
+fit.glm <- train(Class ~ ., data=gc, method='glm', family='binomial', trControl=control)
+
+set.seed(seed)
+fit.knn <- train(Class ~ ., data=gc, method='knn', trControl=control, tuneGrid=data.frame(k=c(20,30,40,50,60)))
+
+set.seed(seed)
+fit.rpart <- train(Class ~ ., data=gc, method='rpart', trControl=control, tuneGrid=data.frame(.cp=c(0, 0.02, 0.05, 0.07)))
+
+set.seed(seed)
+fit.rf <- train(Class ~ ., data=gc, method='rf', trControl=control)
+
+set.seed(seed)
+fit.ctree <- train(Class ~ ., data=gc, method='ctree', trControl=control)
+
+set.seed(seed)
+fit.nnet <- train(Class ~ ., data=gc, method='nnet', trControl=control)
 
 
-````
+```
 
 
 - Compare the models using `caret::confusionMatrix`
@@ -57,20 +75,57 @@ fit.myown <- ..
 Show your work! 
 
 ```{r}
+#confusion matrices assumes postive='bad' due to it being the first level, no need to specify.
 
-.. # YOUR WORK HERE
+table(fit.glm$pred$pred, fit.glm$pred$obs) %>% confusionMatrix()
+fit.glm  %>% confusionMatrix
 
+table(fit.knn$pred$pred, fit.knn$pred$obs) %>% confusionMatrix()
+fit.knn  %>% confusionMatrix
+
+table(fit.rpart$pred$pred, fit.rpart$pred$obs) %>% confusionMatrix()
+fit.rpart  %>% confusionMatrix
+
+table(fit.ctree$pred$pred, fit.ctree$pred$obs) %>% confusionMatrix()
+fit.ctree  %>% confusionMatrix
+
+table(fit.rf$pred$pred, fit.rf$pred$obs) %>% confusionMatrix()
+fit.rf  %>% confusionMatrix
+
+table(fit.nnet$pred$pred, fit.nnet$pred$obs) %>% confusionMatrix()
+fit.nnet  %>% confusionMatrix
+
+roc.fit.glm <- roc(fit.glm$pred$obs, fit.glm$pred$Bad, auc=TRUE )
+roc.fit.glm %>% plot( print.auc=TRUE, grid=TRUE)
+
+roc.fit.knn <- roc(fit.knn$pred$obs, fit.knn$pred$Bad, auc=TRUE )
+roc.fit.knn %>% plot( print.auc=TRUE, grid=TRUE)
+
+roc.fit.rpart <- roc(fit.rpart$pred$obs, fit.rpart$pred$Bad, auc=TRUE )
+roc.fit.rpart %>% plot( print.auc=TRUE, grid=TRUE)
+
+roc.fit.ctree <- roc(fit.ctree$pred$obs, fit.ctree$pred$Bad, auc=TRUE )
+roc.fit.ctree %>% plot( print.auc=TRUE, grid=TRUE)
+
+roc.fit.rf <- roc(fit.rf$pred$obs, fit.rf$pred$Bad, auc=TRUE )
+roc.fit.rf %>% plot( print.auc=TRUE, grid=TRUE)
+
+#I wanted to use this with feature removal, but was taking really long
+roc.fit.nnet <- roc(fit.nnet$pred$obs, fit.nnet$pred$Bad, auc=TRUE )
+roc.fit.nnet %>% plot( print.auc=TRUE, grid=TRUE)
 ```
 
 
 Q: Which models would you select based on these tools?
 
+Based on accuraccy, kappa, and true positive rate (sensitivity, which is important if bads are costlier), the GLM model is the one I would choose.
+
 Q: If you assume that a `Class=="bad""` is 10 more costly than `Class=="good"`, determine your threshold for the model of your choice.  Show your work.
 
 
 ```{r}
-
-.. # YOUR WORK HERE
-
+#Coordinates of the ROC curve using best threshold where false negative weight is +10. Prevalence is .3.
+#This is the threshold
+coords(roc= roc.fit.glm, x = 'best', ret = 'threshold', best.weights=c(10, .3))
 
 ```
