@@ -1,6 +1,6 @@
 ---
 title: "05-exercises"
-author: "Your Name Here"
+author: "Steven Rivera-James"
 date: "2016-05-xx"
 output: html_document
 ---
@@ -14,7 +14,7 @@ output: html_document
 
 ```{r,echo=FALSE}
 
-packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr')
+packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr', 'caret', 'ipred', 'bst')
 
 for( nm in packs ) { 
   # message(nm)
@@ -38,35 +38,35 @@ This week we return to the Fuel Economy Data having learned much about model bui
 
 Start by making choosing a metric and making a naive guess of model performance: 
 
-Metric: _______________
-Naive Guess: _______________
-Expected Model Performance (based on Naive Guess): _______________
+Metric: Root Mean Squared
+Naive Guess: 35.03823 (Mean)
+Expected Model Performance (based on Naive Guess): 8.096176
 
 Show your work below for the calculations
 
 ```{r} 
 
   
-naive_guess = ..
+naive_guess = mean(FE$FE)
 
-err_naive_guess = ..
+err_naive_guess = (FE$FE - naive_guess)^2 %>% mean %>% sqrt
 
 ```
 
 
-Based only your intuition, how low do your think you can get your metric: ___________
+Based only your intuition, how low do your think you can get your metric: I'd say that we can get this down to .5 or .4 
 
 
 ## Examine your data
 
  * Plot your response/outcome 
 
- * Make a guess of a strong predictor: _________________  
+ * Make a guess of a strong predictor: EngDispl 
  * Plot your response vs your predictor. 
 
 ```{r}
 
-.. # Your work here
+ggplot(data=FE, aes(x = EngDispl, y=FE)) + geom_point() + geom_hline(yintercept=naive_guess, color='red')
 
 ```
 
@@ -77,16 +77,22 @@ Based only your intuition, how low do your think you can get your metric: ______
 Using **caret**, build a simple linear model and a simple tree model. 
 
 ```{r}
+seed <- 123
 
-fit.lm <- .. # Your model here
-fit.rp <- .. # Your model here
+control <- trainControl(number=5)
+
+set.seed(seed)
+fit.lm <- train(FE~., data=FE, method='lm', trControl=control)
+
+set.seed(seed)
+fit.rp <- train(FE ~ ., data=FE, method='rpart', trControl=control, tuneLength=20)
 
 ```
 
 
 What did you learn about the data from these models.
 
-
+Both models reduce our error significantly, while still using all the predictors; however, the linear model slighty reduces the error more than the tree.
 
 ## Build More Advanced Models
 
@@ -97,10 +103,17 @@ Now refine your models. Use **caret** to build advanced models:
 ```{r}
 
 # Your work here.
-fit.bag   <- .. # bagging model 
+set.seed(seed)
+fit.bag   <-  train(FE ~ ., data=FE, method='treebag', trControl=control)
 
-fit.boost <- .. # boosting model
+set.seed(seed)
+fit.boost <- train(FE ~ ., data=FE, method='BstLm', trControl=control, tuneLength=20)
 
+fit.lm
+fit.rp
+
+fit.boost
+fit.bag
 
 ```
 
@@ -108,4 +121,8 @@ fit.boost <- .. # boosting model
 ## Conclusion 
 
 Which model would you use and why?  Under different circumstances why would you choose one of the other models.
+
+Amongst the advanced models, I would choose the boosted linear model due to a lower error and comparable Rsquared (similar to the comparison of the simple linear model and the tree); however, if I were to choose amongst all the models, I'd choose the simple linear model given that it performed the best, not to mention that it is the simplest. My choices for advanced models might not have been the best, though, given that they are the boosted and bagged versions of the simpler models; however, I wanted to choose models that were of the same vein for comparison reasons. 
+
+There are many circumstances where I'd want to use the advanced models. Even in this case I might if I consider how limited my comparisons are. For instance, maybe with a larger dataset and a larger bootstrap (from what I've gathered more tends to work better), the latter may prove more useful, though computationally more expensive.
 
